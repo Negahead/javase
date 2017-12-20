@@ -285,7 +285,7 @@ public class Main {
     }
 }
 
-class Person implements Comparable<Person>{
+class Persons implements Comparable<Person>{
     private int age;
     private int height;
     private String name;
@@ -314,7 +314,7 @@ class Person implements Comparable<Person>{
         this.name = name;
     }
 
-    public Person(int age, int height, String name) {
+    public Persons(int age, int height, String name) {
         this.age = age;
         this.height = height;
         this.name = name;
@@ -331,17 +331,17 @@ class Person implements Comparable<Person>{
 
     @Override
     public int compareTo(Person o) {
-        if(this.age > o.getAge()) {
+        if (this.age > o.getAge()) {
             return 1;
         }
-        if(this.age < o.getAge()) {
+        if (this.age < o.getAge()) {
             return -1;
         }
-        if(this.age == o.getAge()) {
-            if(this.height > o.getHeight()) {
+        if (this.age == o.getAge()) {
+            if (this.height > o.getHeight()) {
                 return 1;
             }
-            if(this.height < o.getHeight()) {
+            if (this.height < o.getHeight()) {
                 return -1;
             }
             return 0;
