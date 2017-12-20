@@ -1,6 +1,8 @@
 import annotations.MyCustomAnnotation;
 import classes.PersonReflect;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
@@ -264,6 +266,14 @@ public class Main {
         Package pack = clazz.getPackage();
         // classes
         System.out.println(pack.getName());
+
+        /**
+         *  getResourceAsStream()
+         */
+        System.out.println("getResourceAsStream()===================================================================");
+        InputStream fileInputStream = clazz.getResourceAsStream("/log");
+        System.out.println(fileInputStream.read());
+
 
 
     }
