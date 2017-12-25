@@ -1,10 +1,10 @@
 import annotations.MyCustomAnnotation;
 import classes.PersonReflect;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
@@ -275,6 +275,87 @@ public class Main {
         System.out.println(fileInputStream.read());
 
 
+        /**
+         *  System class
+         */
+
+        System.out.println("System class==========================================================");
+        for(Map.Entry<String,String> env : System.getenv().entrySet()) {
+            System.out.println(env.getKey() + " ---> " + env.getValue());
+        }
+        // case sensitive
+        System.out.println("HOME env is " + System.getenv("HOME"));
+        //String line = System.console().readLine("%s","enter a line of sentence");
+       // System.out.println("you just entered " + line);
+
+        // linux
+        System.out.println(System.getProperty("os.name"));
+        System.out.println(System.getProperty("java.class.path"));
+        // /home/will
+        System.out.println(System.getProperty("user.home"));
+        // will
+        System.out.println(System.getProperty("user.name"));
+        // /home/will/yimi/javvaSE
+        System.out.println(System.getProperty("user.dir"));
+        for(Enumeration e = System.getProperties().propertyNames();e.hasMoreElements();) {
+            System.out.println(e.nextElement());
+        }
+
+        System.out.println("java.io===============================================================");
+
+        /**
+         *  java.io
+         */
+        File textFile = new File("/home/will/Documents/text.txt");
+        File relativeFile = new File("~/Documents/text.txt");
+        File fileToBeDelete = new File("/home/will/Documents/trash");
+        File newFile = new File("/home/will/Documents/newFile.txt");
+        File dir = new File("/home/will/Documents/");
+        fileToBeDelete.delete(); // trash file is deleted,return true or false
+        System.out.println(textFile.canExecute()); // false
+        System.out.println(textFile.canRead()); // true,user group other, here is user chmod u-r text
+        System.out.println(newFile.exists()); // false
+        System.out.println(textFile.getName()); // text.txt
+        System.out.println(textFile.getParent()); //   /home/will/Documents
+        System.out.println(textFile.getPath());//      /home/will/Documents/text.txt
+        System.out.println(textFile.isAbsolute()); // true
+
+        System.out.println(relativeFile.isAbsolute()); // false
+        System.out.println(relativeFile.getPath()); // ~/Documents/text.txt
+        /**
+         * length() method is defined in UnixFileSystem as public native long getLength(File f);
+         * the native marks a method,that it will be implemented in other language,not in Java,It works together with JNI(Java Native Interface)
+         */
+        System.out.println(textFile.length()); //    1071 bytes
+        System.out.println(textFile.isDirectory()); // false
+        System.out.println(dir.isDirectory()); // true
+
+        System.out.println(newFile.mkdir()); // always make a new directory
+
+        System.out.println(File.separator); // '/'
+        System.out.println(File.pathSeparator); // ':'
+
+        InputStream inputStream = new FileInputStream(textFile);
+        OutputStream outputStream = new FileOutputStream(new File("/home/will/Documents/text_copy.txt"));
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        for(boolean var1 = true; (bytesRead = inputStream.read(buffer)) != -1;) {
+            outputStream.write(buffer,0,bytesRead);
+        }
+        outputStream.flush();
+        inputStream.close();
+        outputStream.close();
+
+        simpleDateFormatTest();
+
+    }
+
+    /**
+     *  SimpleDateFormat
+     */
+    public static void simpleDateFormatTest() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd G HH:mm:ss aa");
+        System.out.println(simpleDateFormat.format(new Date()));
 
     }
 
