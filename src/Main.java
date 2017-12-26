@@ -346,6 +346,20 @@ public class Main {
         inputStream.close();
         outputStream.close();
 
+        System.out.println(String.format("|%08d|",55665L)); //       |00055665|
+        System.out.println(String.format("|%20s|","perl")); //      |                perl|
+        System.out.println(String.format("|%-20.2s|","perl")); //   |pe                  |
+        System.out.println(String.format("|%2$10s|,|%1$-10s|","perl","python")); // |    python|,|perl      |
+        System.out.println(String.format("%,d",10000000));// 10,000,000
+        System.out.println(String.format("%#o",234)); // 0352
+        System.out.println(String.format("%#X",234)); // 0XEA
+
+        List<String> cc = new ArrayList<>();
+        cc.add("fo");
+        cc.add("sdf");
+        cc.add("fa");
+        System.out.println(cc.toString().replace("[","").replace("]",""));
+
         simpleDateFormatTest();
 
     }
