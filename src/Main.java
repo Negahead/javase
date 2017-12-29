@@ -1,3 +1,5 @@
+import POJO.InvoiceInfo;
+import annotations.InvoiceFieldName;
 import annotations.MyCustomAnnotation;
 import classes.PersonReflect;
 
@@ -6,6 +8,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -361,6 +364,36 @@ public class Main {
         System.out.println(cc.toString().replace("[","").replace("]",""));
 
         simpleDateFormatTest();
+
+        System.out.println("==================reflect");
+        InvoiceInfo invoiceInfo = new InvoiceInfo();
+        invoiceInfo.setMakeDate("2017-12-01");
+        invoiceInfo.setPayDate("2017-12-05");
+        invoiceInfo.setPlanSubmitDate("2017-12-29");
+        /**
+         *  getFields:All the public fields up the entire class hierarchy.
+         *  getDeclaredFields: All the fields, regardless of their accessibility but only for the current class,
+         *                     not any base classes that the current class might be inheriting from.
+         */
+
+        Class invoiceClazz = invoiceInfo.getClass();
+        Field listField = invoiceClazz.getDeclaredField("invoiceDetailList");
+        Field f = invoiceClazz.getDeclaredField("makeDate");
+        System.out.println(listField.getType().getTypeName());
+        System.out.println(f.getType().getTypeName());
+        ParameterizedType pType = (ParameterizedType) listField.getGenericType();
+        System.out.println(pType.getActualTypeArguments()[0].getTypeName());
+        System.out.println(f.getName());
+
+        List<Person> collect = personList.stream().filter(o -> {
+            if (o.getAge() > 40) {
+                return true;
+            }
+            return false;
+        }).collect(Collectors.toList());
+        //6 ,3,原list不变
+        System.out.println(collect);
+
 
     }
 
