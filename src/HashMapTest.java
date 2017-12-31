@@ -1,9 +1,11 @@
+import POJO.InvoiceDetail;
+
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 /**
@@ -42,11 +44,14 @@ public class HashMapTest {
     // treeMap is Red-Black tree based NavigableMap implementation,it is default sorted according to the natural ordering of its key.
     // HashTable is synchronized,in contract to HashMap.
     public static void main(String[] args) {
+
+
         Map<String,String> hashMap = new HashMap<>();
         hashMap.put("name","dopa");
         hashMap.put("age","23");
         hashMap.put("city","NewYork");
         hashMap.put("birthday","2017-12-29");
+        hashMap.put("null",null);
         Class clazz = hashMap.getClass();
         System.out.println("clazz is of type " + clazz.getTypeName());
         Type[] genericInterfaces = clazz.getGenericInterfaces();
@@ -82,6 +87,65 @@ public class HashMapTest {
             return s.concat(" and then this");
         }));
         System.out.println(hashMap.get("birthday"));
+        System.out.println(hashMap.getOrDefault("noSuchKey","defaultValue"));
+        printMap(hashMap);
 
+        List<String> strList = new ArrayList<>();
+        strList.add("David");
+        strList.add("Gourley");
+        strList.add("Brian");
+        strList.add("Totty");
+        strList.add("age");
+        strList.forEach(s->{
+            hashMap.merge(s,"AAAA",(oldValue,value)->{
+                return oldValue.concat(value);
+            });
+        });
+
+        printMap(hashMap);
+
+
+        Map<String,Integer> linkHashMap = new LinkedHashMap<>();
+        linkHashMap.put("a",1);
+        linkHashMap.put("b",2);
+        linkHashMap.put("c",3);
+        linkHashMap.put("d",4);
+
+        printMap(linkHashMap);
+
+        System.out.println("tree map ===================");
+        TreeMap<String,Integer> treeMap = new TreeMap<>((s1,s2)->{
+            return -s1.compareTo(s2);
+        });
+        treeMap.put("a",1);
+        treeMap.put("b",2);
+        treeMap.put("c",3);
+        treeMap.put("dd",4);
+        treeMap.put("Absence",4);
+        treeMap.put("Max",4);
+        treeMap.put("fear",4);
+        treeMap.put("tear",4);
+        printMap(treeMap);
+        /**
+         * from the least to to most significant according the Comparator,not literal greater than.
+         */
+        System.out.println(treeMap.ceilingKey("fc"));
+        System.out.println(treeMap.firstEntry().getKey());
+        System.out.println(treeMap.headMap("c"));
+
+
+
+
+
+
+
+
+    }
+
+    private static <K,V> void printMap(Map<K,V> map) {
+        BiConsumer<K,V> biConsumer = (k,v)->{
+            System.out.println(String.format("%20s",k) + "--->" + String.format("%-50s",v));
+        };
+        map.forEach(biConsumer);
     }
 }

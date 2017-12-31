@@ -24,4 +24,8 @@ public class InvoiceDetail {
     public void setInvoiceAmount(String invoiceAmount) {
         this.invoiceAmount = invoiceAmount;
     }
+
+    interface MyEntry {
+        void doNothing();
+    }
 }
