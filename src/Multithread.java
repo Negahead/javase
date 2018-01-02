@@ -129,6 +129,14 @@ public class Multithread {
          *      resurrection.
          *
          *
+         * What is interrupt?
+         *      An interrupt is an indication to a thread that it should stop what it is doing and do something
+         *      else,It's up to the programmer to decide exactly how a thread responds to an interrupt,but it is
+         *      very common for the thread to terminate.
+         *      The interrupt mechanism is implemented using an internal flag known as the interrupt status,invoking
+         *      interrupt() set this flag,invoking static method Thread.interrupted() clears the status.
+         *
+         *
          */
 
 
@@ -171,6 +179,13 @@ public class Multithread {
         Thread mythread2 = new Thread(r);
         Thread myThread3 = new Thread(r);
         // after calling start(),execution returns to main()
+        /**
+         * the purpose of start() is to create a separate call stack for the thread,then the run() is called
+         * by the JVM,if you directly call run() method,all threads are pushed on the same stack.
+         * start() will creates a new thread and this newly created thread will internally execute the run()
+         * method,once the new thread is crated,control is returned to the caller thread to continue and the
+         * result is that two threads running in parallel.
+         */
         myThread.start();
         mythread2.start();
         myThread3.start();
