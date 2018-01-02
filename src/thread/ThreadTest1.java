@@ -29,7 +29,7 @@ public class ThreadTest1 {
          *      For a multithreaded program's behavior to be predictable,access the shared variable must be properly
          *      coordinated so that the threads do not interfere with one another.
          *
-         * Thread programming place a significant design and implementation burden on developers,since developing thread-sage
+         * Thread programming place a significant design and implementation burden on developers,since developing thread-safe
          * classes require more care and analysis than developing non-thread-safe classes.
          *
          * synchronized keyword,which provides exclusive locking,but the term "synchronization" also includes the use of
@@ -41,8 +41,8 @@ public class ThreadTest1 {
          *      it has no fields and reference no fields from other classes,they are always thread-safe.
          *
          * Using atomic references,we cannot update both atomic references simultaneously,even though each call is atomic.
-         * you use synchronized block:
-         *      A synchronized block has two parts:a reference to an object that will serve as the lock and a block of code to
+         * instead you use synchronized block:
+         *      A synchronized block has two parts: a reference to an object that will serve as the lock and a block of code to
          *      be guarded by that lock,A synchronized method is a shorthand for a synchronized block that spans an entire
          *      method body,and whose lock is the object on which the method is being invoked,static synchronized methods
          *      use the Class object for the lock.

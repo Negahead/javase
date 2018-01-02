@@ -4,13 +4,13 @@
 public class Multithread {
     public static void main(String[] args) throws InterruptedException {
         /**
-         * A principal advantage of multithreading is that it enables you write vary efficient programs
+         * A principal advantage of multiThreading is that it enables you write vary efficient programs
          * because it lets you utilize the idle time that is present in most programs.A program will often
          * spend a majority of its execution time waiting to send or receive information to or from a device.
-         * By using multithreading ,your program can execute another task during this idle time.
+         * By using multiThreading ,your program can execute another task during this idle time.
          *
          * each thread receiving a slice of CPU time, so in single-core system,two or more threads do not
-         * actually run at the same time,but idle CPU time is utilized.However,in multiprocessor/multicore systems,
+         * actually run at the same time,but idle CPU time is utilized.However,in multiprocessor/multi-core systems,
          * it is possible for two or more threads to actually execute simultaneously.
          *
          *
@@ -44,7 +44,7 @@ public class Multithread {
          *          and invoke it,That is the entry-point to your program.main method in java in run by main thread which
          *          is a non daemon thread and java program runs until main method finishes or any other user thread is running.
          *
-         *      In java threads,there is no concept of parent child
+         *      In java threads,there is no concept of parent child relationship
          *
          *      main method is referred as entry point of Java application which is true in case of core java application
          *      but in case of container managed environment like Servlet,EJB this is not true as these Java programs
@@ -65,7 +65,7 @@ public class Multithread {
          *
          *
          *  priority in more a hint than a contract to the JVM,threads are unpredictable in nature,thread priority
-         *  isn't very meaning full when all threads are competing for CPU.A thread's priority determines,in part how much
+         *  isn't very meaningful when all threads are competing for CPU.A thread's priority determines,in part how much
          *  CPU time a thread receives relative to other active threads.in general,low-priority threads receive little,
          *  high priority receives a lot.
          *
@@ -88,7 +88,7 @@ public class Multithread {
          *      protects no data.
          *
          *      To implement the mutual exclusion capability of monitors,the Java virtual machine associates a lock(sometimes
-         *      called a mutex) with each object and class,A lock is like a privilege that only one thread cn "own" ay any one
+         *      called a mutex) with each object and class,A lock is like a privilege that only one thread can "own" at any one
          *      time.Threads need not obtain a lock to access instance or class variables,however,if a thread does obtain a lock,
          *      no other thread can obtain a lock on the same data until the thread that owns the lock releases it.
          *
@@ -99,7 +99,7 @@ public class Multithread {
          *      Each time the thread releases the lock, the count is decremented. When the count reaches zero, the
          *      lock is released and made available to other threads.
          *
-         *      A thread in the Java virtual machine request a lock when it arrives at the beginning of a monitor region,
+         *      A thread in the Java virtual machine request a lock WHEN it arrives at the beginning of a monitor region,
          *      in Java,there are two kinds of monitor regions: synchronized statements and synchronized methods,each
          *      monitor regions obtain a lock on the referenced object.the thread is now allowed to execute the code
          *      until it obtains the lock.A monitor region is code that need to executed as one indivisible operation with respect
