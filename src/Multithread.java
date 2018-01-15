@@ -2,7 +2,18 @@
  * Created by AlphaGo on 12/30/2017.
  */
 public class Multithread {
+    //private static int age = 0;
+    /**
+     * each thread that accesses one ThreadLocal variable has its own,independently initialized copy of the variable.
+     */
+    private static ThreadLocal<Integer> age = new ThreadLocal<Integer>() {
+        @Override
+        protected Integer initialValue() {
+            return 100;
+        }
+    };
     public static void main(String[] args) throws InterruptedException {
+
         /**
          * A principal advantage of multiThreading is that it enables you write vary efficient programs
          * because it lets you utilize the idle time that is present in most programs.A program will often
@@ -136,6 +147,17 @@ public class Multithread {
          *      The interrupt mechanism is implemented using an internal flag known as the interrupt status,invoking
          *      interrupt() set this flag,invoking static method Thread.interrupted() clears the status.
          *
+         * Write correct concurrent programs is primarily about managing access to shared,mutable state,use
+         * synchronization to prevent multiple threads from accessing the same data at the same time.
+         *
+         * In the absence of synchronization,the compiler,the processor,and runtime can do some downright weird things to
+         * the order in which operations appear to execute,Attempts to reason about the order in which memory actions
+         * "must" happen in insufficiently synchronized multithreaded program will almost certainly be incorrect.
+         * you should always use the proper synchronization whenever data is shared across threads.
+         *
+         * Thread Confinement:
+         *      if data is only accessed from a single thread,no synchronization is needed,
+         *
          *
          */
 
@@ -176,8 +198,6 @@ public class Multithread {
          * two threads,if you want to ensure specific ordering,use synchronization.
          */
         Thread myThread = new Thread(r);
-        Thread mythread2 = new Thread(r);
-        Thread myThread3 = new Thread(r);
         // after calling start(),execution returns to main()
         /**
          * the purpose of start() is to create a separate call stack for the thread,then the run() is called
@@ -189,22 +209,107 @@ public class Multithread {
          * once the new thread is created,control is returned to the caller thread to continue and the
          * result is that two threads running in parallel.
          */
-        myThread.start();
-        mythread2.start();
-        myThread3.start();
 
-        myThread.join();
-        mythread2.join();
-        myThread3.join();
-//        mythread2.start();
-//        myThread3.start();
+        Runnable r2 = new Runnable() {
+            @Override
+            public void run() {
+                age.set(200);
+                System.out.println("age in r2 is now " +age.get());
+            }
+        };
 
-        myThread.join();
-        for (int i = 0; i < 10; i++) {
+        Runnable r3 = new Runnable() {
+            @Override
+            public void run() {
+                age.set(2000);
+                System.out.println("age in r3 is now " +age.get());
+            }
+        };
 
-            System.out.println("in " + Thread.currentThread().getName() + " i is " + i);
+        Thread t = new Thread(r2);
+        Thread t2 = new Thread(r3);
+//        t.start();
+//        t2.start();
+
+
+        Counter counter = new Counter();
+
+        Thread threadA = new CounterThread(counter);
+        Thread threadB = new CounterThread(counter);
+
+        threadA.start();
+        threadB.start();
+
+        threadA.join();
+        threadB.join();
+
+        for(int i =0 ; i < 10 ;i++) {
+            System.out.println("i is now " + i);
         }
+    }
 
-        System.out.println("main thread terminating");
+
+    /**
+     * A synchronized instance method in java is synchronized on the instance owning the method.
+     * each instance has its synchronized methods synchronized on a different object:the owning instance,
+     * only one thread can execute inside a synchronized instance method,
+     */
+    public synchronized void greeting() {
+
+    }
+
+    // same as
+
+    void greeting2() {
+        synchronized (this) {
+
+        }
+    }
+
+    /**
+     * Synchronized static methods are synchronized on the class object of the class the synchronized
+     * static method belongs to.only one thread can execute inside a static synchronized method in the same class.
+     */
+    public static synchronized void hello() {
+
+    }
+
+    // the same as
+    void hello2() {
+        synchronized (Multithread.class) {
+
+        }
+    }
+
+
+}
+
+class Counter {
+    long count = 0;
+    public synchronized void add(long value) {
+        this.count += value;
+        System.out.println("in thread " + Thread.currentThread().getName() + " count is " + count);
+    }
+}
+
+class CounterThread extends Thread {
+    protected Counter counter = null;
+
+    CounterThread(Counter counter) {
+        this.counter = counter;
+    }
+
+    @Override
+    public void run() {
+        for(int i = 0 ; i < 10 ; i++) {
+            counter.add(1);
+            try {
+                System.out.println(Thread.currentThread().getName() + " start sleep");
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().getName() + " end sleep");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
