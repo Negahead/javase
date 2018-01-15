@@ -181,17 +181,27 @@ public class Multithread {
         // after calling start(),execution returns to main()
         /**
          * the purpose of start() is to create a separate call stack for the thread,then the run() is called
-         * by the JVM,if you directly call run() method,all threads are pushed on the same stack.
+         * by the JVM,if you directly call run() method,all threads are pushed on the same stack.run() will be
+         * executed in the current(existing) thread,there is no thread creation.whereas
          * start() will creates a new thread and this newly created thread will internally execute the run()
-         * method,once the new thread is crated,control is returned to the caller thread to continue and the
+         * method,after thread.start(),the result is that two threads are running concurrently,the current thread(
+         * which returns from the call to the start method) and the other thread,
+         * once the new thread is created,control is returned to the caller thread to continue and the
          * result is that two threads running in parallel.
          */
         myThread.start();
         mythread2.start();
         myThread3.start();
 
+        myThread.join();
+        mythread2.join();
+        myThread3.join();
+//        mythread2.start();
+//        myThread3.start();
+
+        myThread.join();
         for (int i = 0; i < 10; i++) {
-            myThread.join();
+
             System.out.println("in " + Thread.currentThread().getName() + " i is " + i);
         }
 
