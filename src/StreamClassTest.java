@@ -23,10 +23,10 @@ public class StreamClassTest {
     public static void main(String[] args) {
         List<Person> personList = new ArrayList<>();
         personList.add(new Person(22,134,"will"));
-        personList.add(new Person(22,156,"tony"));
+        personList.add(new Person(2,156,"tony"));
         personList.add(new Person(25,169,"stark"));
         personList.add(new Person(16,178,"liv"));
-        personList.add(new Person(16,190,"james"));
+        personList.add(new Person(17,190,"james"));
 
         int[] intArray = new int[] {23,100,1,34,6,-23,12,5,33,-45};
 
@@ -50,6 +50,14 @@ public class StreamClassTest {
         System.out.println(Optional.empty().isPresent());
         System.out.println(Optional.of(2).get());
         System.out.println(Optional.empty().orElse(100));
+       List<Person> filtedPerson = personList.stream().filter(p.and(p2->p2.getHeight()>=156).negate()).collect(Collectors.toList());
+        //filtedPerson.forEach(System.out::println);
+
+        Map<Integer, Person> collect = personList.stream().collect(Collectors.toMap(Person::getAge, s -> s));
+        for(Map.Entry e : collect.entrySet()) {
+            System.out.println(e.getKey() + "====>" + e.getValue());
+        }
+
 
     }
 }
