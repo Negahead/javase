@@ -1,11 +1,11 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import POJO.InvoiceDetail;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
 /**
  * Created by AlphaGo on 12/9/2017.
  */
@@ -36,6 +36,30 @@ public class StreamClassTest {
             System.out.println(e.getKey() + "====>" + e.getValue());
         }
 
+        List<String> s = new ArrayList<>();
+        s.add("2017-01-01");
+        s.add("2017-01-03");
+        s.add("2017-01-05");
+        s.add("2016-12-12");
+        List<String> collect1 = s.stream().sorted().collect(Collectors.toList());
+        collect1.forEach(System.out::println);
+
+        List<InvoiceDetail> l = new ArrayList<>();
+        l.add(new InvoiceDetail(1,"a","sdddfg"));
+        l.add(new InvoiceDetail(0,"b","sdddfg"));
+        l.add(new InvoiceDetail(1,"c","sdddfg"));
+        l.add(new InvoiceDetail(0,"d","sdddfg"));
+        l.add(new InvoiceDetail(1,"e","sdddfg"));
+        l.add(new InvoiceDetail(0,"f","sdddfg"));
+        l.add(new InvoiceDetail(1,"g","sdddfg"));
+        l.stream().sorted( (  (Comparator.comparingInt(InvoiceDetail::getDetailId)))
+        .thenComparing(Comparator.comparing(InvoiceDetail::getInvoiceNo))).forEach(System.out::println);
+
+        Date d = new Date();
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(simpleDateFormat.format(d));
 
     }
 }
