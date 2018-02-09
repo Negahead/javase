@@ -31,6 +31,9 @@ public class Recursive {
      * therefore the tail-call optimization is to overwrite the current stack frame with the next one when making a
      * function call in tail position while keeping the original return address.
      *
+     *
+     * Graph algorithms are some of the most useful algorithms.
+     *
      */
     private static int recursive(int i) {
         /**
