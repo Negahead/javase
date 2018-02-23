@@ -1,4 +1,3 @@
-import sun.util.resources.cldr.aa.CalendarData_aa_ET;
 
 import java.util.Calendar;
 import java.util.Locale;

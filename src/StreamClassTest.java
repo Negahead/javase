@@ -2,6 +2,9 @@ import POJO.InvoiceDetail;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -47,13 +50,6 @@ public class StreamClassTest {
         System.out.println(Optional.empty().isPresent());
         System.out.println(Optional.of(2).get());
         System.out.println(Optional.empty().orElse(100));
-       List<Person> filtedPerson = personList.stream().filter(p.and(p2->p2.getHeight()>=156).negate()).collect(Collectors.toList());
-        //filtedPerson.forEach(System.out::println);
-
-        Map<Integer, Person> collect = personList.stream().collect(Collectors.toMap(Person::getAge, s -> s));
-        for(Map.Entry e : collect.entrySet()) {
-            System.out.println(e.getKey() + "====>" + e.getValue());
-        }
 
         List<String> s = new ArrayList<>();
         s.add("2017-01-01");

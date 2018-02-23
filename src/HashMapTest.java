@@ -1,5 +1,3 @@
-import POJO.InvoiceDetail;
-
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -38,7 +36,7 @@ public class HashMapTest {
 
 
     // hashMap permits null key and null value,the class makes no guarantees as to the order of the map.
-    // LinkedHashMap class is based o both hash table and linked list to enhance the functionality of hash map,it
+    // LinkedHashMapTest class is based o both hash table and linked list to enhance the functionality of hash map,it
     // maintains a doubly-linked list running through all its entries in addition to an underlying array of default size 16,
     // it preserves the insertion order.
     // treeMap is Red-Black tree based NavigableMap implementation,it is default sorted according to the natural ordering of its key.

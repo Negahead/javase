@@ -1,0 +1,121 @@
+=================================== Hash Table============================================
+A hash table is a data structure that offers very fast insertion and searching.
+No matter how many data items there are, insertion and searching (and
+sometimes deletion) can take close to constant time: O(1)
+in big O notation. In practice this is just a few machine
+instructions.
+
+Hash tables do have several disadvantages. They’re based
+on arrays, and arrays are difficult to expand after they’ve
+been created. For some kinds of hash tables, performance
+may degrade catastrophically when a table becomes too
+full, so the programmer needs to have a fairly accurate idea
+of how many data items will need to be stored
+
+One important concept is
+how a range of key values is transformed into a range of array index values. In a
+hash table this is accomplished with a hash function.
+
+hashing - What we need is a way to compress the huge range of numbers we obtain from the
+          numbers-multiplied-by-powers system into a range that matches a reasonably sized
+          array.
+
+A hash function transforms these large numbers into the index numbers of a much smaller
+array. In this array we expect that, on the average, there will be one word for every
+two cells. Some cells will have no words; and others, more than one.
+
+Collisions - We pay a price for squeezing a large range into a small one. There’s no longer a
+             guarantee that two words won’t hash to the same array index.
+
+Remember that we’ve specified an array with twice as many cells as data items. Thus,
+perhaps half the cells are empty. One approach, when a collision occurs, is to search
+the array in some systematic way for an empty cell and insert the new item there,
+instead of at the index specified by the hash function. This approach is called open
+addressing. If cats hashes to 5,421, but this location is already occupied by parsnip,
+then we might try to insert cats in 5,422, for example.
+
+A second approach (mentioned earlier) is to create an array that consists of linked
+lists of words instead of the words themselves. Then, when a collision occurs, the
+new item is simply inserted in the list at that index. This is called separate chaining.
+
+Open Addressing:
+    In open addressing, when a data item can’t be placed at the index calculated by the
+    hash function, another location in the array is sought. We’ll explore three methods
+    of open addressing, which vary in the method used to find the next vacant cell.
+    These methods are linear probing, quadratic probing, and double hashing.
+
+    Linear Probing:
+        In linear probing we search sequentially for vacant cells. If 5,421 is occupied when
+        we try to insert a data item there, we go to 5,422, then 5,423, and so on, increment-
+        ing the index until we find an empty cell. This is called linear probing because it
+        steps sequentially along the line of cells.
+
+        Expanding the Array:
+            One option when a hash table becomes too full is to expand its array. In Java, arrays
+            have a fixed size and can’t be expanded. Your program must create a new, larger
+            array, and then insert the contents of the old small array into the new large one.
+
+            Remember that the hash function calculates the location of a given data item based
+            on the array size, so items won’t be located in the same place in the large array as
+            they were in the small array. You can’t therefore simply copy the items from one
+            array to the other. You’ll need to go through the old array in sequence, cell by cell,
+            inserting each item you find into the new array with the insert() method. This is
+            called rehashing. It’s a time-consuming process, but necessary if the array is to be
+            expanded.
+    Quadratic Probing:
+        tries something 4 cells away(1,4,9,...)
+
+    Double Hashing:
+        What we need is a way to generate probe sequences that depend on the key instead
+        of being the same for every key. Then numbers with different keys that hash to the
+        same index will use different probe sequences.
+        The solution is to hash the key a second time, using a different hash function, and
+        use the result as the step size
+
+Separate Chaining:
+    In open addressing, collisions are resolved by looking for an open cell in the hash
+    table. A different approach is to install a linked list at each index in the hash table. A
+    data item’s key is hashed to the index in the usual way, and the item is inserted into
+    the linked list at that index. Other items that hash to the same index are simply
+    added to the linked list; there’s no need to search for empty cells in the primary
+    array.
+
+    Separate chaining is conceptually somewhat simpler than the various probe schemes
+    used in open addressing. However, the code is longer because it must include the
+    mechanism for the linked lists, usually in the form of an additional class.
+
+    The load factor (the ratio of the number of items in a hash table to its size) is typi-
+    cally different in separate chaining than in open addressing. In separate chaining it’s
+    normal to put N or more items into an N cell array; thus, the load factor can be 1 or
+    greater. There’s no problem with this; some locations will simply contain two or
+    more items in their lists.
+
+    Of course, if there are many items on the lists, access time is reduced because access
+    to a specified item requires searching through an average of half the items on the
+    list. Finding the initial cell takes fast O(1) time, but searching through a list takes
+    time proportional to M, the average number of items on the list. This is O(M) time.
+    Thus, we don’t want the lists to become too full.
+
+    In open addressing, performance degrades badly as the load factor increases above
+    one-half or two-thirds. In separate chaining the load factor can rise above 1 without
+    hurting performance very much. This makes separate chaining a more robust mecha-
+    nism, especially when it’s hard to predict in advance how much data will be placed
+    in the hash table.
+
+
+=====================================Linked List========================================================
+Each Link object contains a reference (usually called next ) to the
+next link in the list
+
+Class Link {
+    public int data;
+    public Link next;
+}
+This kind of class definition is sometimes called self-referential because it contains a
+field—called next in this case—of the same type as itself.
+
+in Java a Link object doesn’t really contain another Link object,
+although it may look like it does. The next field of type Link is only a reference to
+another link, not an object.
+
+
