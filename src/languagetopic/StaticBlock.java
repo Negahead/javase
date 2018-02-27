@@ -25,15 +25,58 @@ public class StaticBlock {
     /**
      * instance initializer
      */
-    {
-        // this code is executed before every constructors
-        System.out.println("initializer blocks");
-    }
+//    {
+//        // this code is executed before every constructors
+//        System.out.println("initializer blocks");
+//    }
 
     StaticBlock() {
         System.out.println("constructing an object");
     }
+
+    StaticBlock(String name) {
+        System.out.println(name);
+    }
     public static void main(String[] args) {
         StaticBlock s = new StaticBlock();
+        System.out.println("=========================================");
+        ChildClass obj = new ChildClass();
+
     }
+}
+
+class SuperClass {
+    static StaticBlock staticBlock = new StaticBlock("static field in superclass");
+    static {
+        System.out.println("SuperClass static block");
+    }
+    private final StaticBlock finalfield = new StaticBlock("final field in super class");
+    StaticBlock staticBlock1 = new StaticBlock("instance field in superclass");
+
+    {
+        System.out.println("SuperClass instance block");
+    }
+
+    SuperClass() {
+        System.out.println("SuperClass constructor");
+    }
+}
+
+class ChildClass extends SuperClass{
+    static {
+        System.out.println("ChildClass static block");
+    }
+    {
+        System.out.println("ChildClass instance block");
+    }
+    static StaticBlock staticBlock = new StaticBlock("static field in child class");
+
+    ChildClass() {
+        System.out.println("ChildClass constructor");
+        this.finalFieldByConstructor = new StaticBlock("final field by constructor");
+    }
+    StaticBlock staticBlock1 = new StaticBlock("instance field in child class");
+    private final StaticBlock finalFieldByConstructor;
+    private final StaticBlock finalfield = new StaticBlock("final field in child class");
+
 }

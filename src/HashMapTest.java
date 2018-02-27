@@ -132,6 +132,21 @@ public class HashMapTest {
         System.out.println(treeMap.headMap("c"));
 
 
+        /**
+         * Synchronized collections are largely obsolete
+         * use ConcurrentHashMap and friends,
+         * Never synchronize on a concurrent collection
+         * Use putIfAbsent properly:
+         *      only call putIfAbsent() if get() returns null,
+         *      always check the return value of putIfAbsent().
+         */
+        System.out.println("===============");
+        Map<String,String>  map = new HashMap<>();
+        String s = map.putIfAbsent("dopa","faker");
+        System.out.println(s); // null
+        System.out.println(map.get("dopa")); // faker
+        System.out.println(map.putIfAbsent("dopa","faker"));
+
 
 
 

@@ -21,6 +21,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class HttpClientTest {
+    protected int j = 100;
+    void greeting() {
+        System.out.println("hello world");
+    }
+    protected void hello() {
+        System.out.println("protected hello");
+    }
     public static void main(String[] args) throws IOException, URISyntaxException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         URIBuilder uriBuilder = new URIBuilder();
