@@ -87,9 +87,70 @@ package thread;
  *          -----------------------------------------------------------
  *          |
  *          class pointer + Flags + Locks + Size + M + y + S + t + r + i + n + g
+ *
+ *
+ *
+ *    The idea of async IO is that you begin the I/O and return to do other stuff,then when the I/O is finished,you are notified
+ *    and can do more I/O,in other words,you are not waiting around for it to finish.
  */
 public class ConcurrentPkg {
     public static void main(String[] args) {
+        System.out.println("Main thread starting.");
+        MyThread t = new MyThread("child #1");
+        Thread newThread = new Thread(t);
+        newThread.start();
+        try {
+            newThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for(int i = 0 ; i < 50; i++) {
+            System.out.println(".");
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Main thread interrupted");
+            }
+        }
+        System.out.println("Main thread terminating");
+    }
+}
+
+class MyThread implements Runnable {
+    String threadName;
+
+    public MyThread(String name) {
+        this.threadName = name;
+    }
+
+    @Override
+    public void run() {
+        System.out.println(threadName + " starting.");
+        try {
+            for(int i = 0; i < 10; i++) {
+                /**
+                 * Thread sleep doesn't lose any monitor of locks the current thread has acquired.
+                 * you can interrupt the sleeping thread by call the interrupt() method.
+                 */
+                Thread.sleep(400); // pause the execution of current thread for specific time.
+                System.out.println("In " + threadName + ", count is " + i);
+            }
+        } catch (InterruptedException e) {
+            System.out.println(threadName + " interrupted.");
+        }
+        System.out.println(threadName + " terminating.");
+    }
+}
+
+class Widget {
+    public synchronized void doSomething() {
+
+    }
+}
+
+class LoggingWidget extends Widget {
+    @Override
+    public void doSomething() {
 
     }
 }

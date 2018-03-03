@@ -158,6 +158,76 @@ public class Multithread {
          * Thread Confinement:
          *      if data is only accessed from a single thread,no synchronization is needed,
          *
+         * The best default strategy is to define a Runnable as a separate class and supply it in Thread constructor.
+         * Isolating code within a distinct class relieves you of worrying about any potential interactions of
+         * synchronized methods or blocks used in the Runnable with any that may be used by methods of class Thread.
+         *
+         * Threads are not restartable,even after they terminate,Invoking start more than once result in
+         * an InvalidThreadStateException.
+         *
+         * One thread cannot readily determine which other thread started it, although it may determine the identities
+         * of other thread in its ThreadGroup.
+         *
+         * the Maximum allowed priority for a thread is bounded by its ThreadGroup.
+         *
+         * each Thread has an associated boolean interruption status,Invoking t.interrupt for some thread t set t's
+         * interruption status to true,unless thread t is engaged in wait,sleep,join,in this case interrupt causes
+         * these actions to throw InterruptedException,but it;s interruption status is set to false.
+         *
+         * the synchronized keyword is not considered to be part of a method's signature,So the synchronized modifier is
+         * not automatically inherited when subclass override superclass methods.and methods in interface cannot be
+         * declared as synchronized.also,constructors cannot be qualified as synchronized.
+         *
+         * Synchronized instance methods in subclass employ the same lock as those in their superclasses,But synchronization
+         * if an inner class method is independent of its outer class
+         *
+         * All locking is block-structured,A lock is acquired on entry to a synchronized method or block,and released on exit.
+         *
+         * when one thread releases a lock,another thread may acquire it,but there is no guarantee about which of any blocked
+         * threads will acquire the lock next or then whey will do.
+         *
+         * locking an object does not automatically protect access to static field of that object's class or any of its
+         * superclass.Access to static field is instead protected via synchronized static methods and blocks.Static
+         * synchronization employs the lock possessed by the Class object associated with the class the static methods
+         * are declared in.The static lock for class c can also be accessed inside instance methods via:
+         *      synchronized(C.class) {}
+         *
+         * The static lock associated with each class is unrelated to that of any other class,including its superclass,it is
+         * not effective to add a new static synchronized method in subclass that attempts to protect static field declared
+         * in a superclass.
+         *
+         * Wait:
+         *      A wait invocation results in the following actions:
+         *          -- If the current thread has been interrupted,the the method exits immediately,throwing an InterruptedException,
+         *             otherwise,the current thread is blocked.
+         *          -- The JVM places the thread in th internal and otherwise inaccessible wait set associated with the
+         *             target object.
+         *          -- the synchronization lock for the target object is released,but all other locks held by the thread are
+         *             retained,A full release in obtained even if the lock is re-entrantly held due to nested
+         *             synchronized calls on the target object,Upon later resumption,the lock status is fully restored.
+         *
+         * Notify:
+         *      A notify invocation results in the following actions:
+         *          -- If one exists and arbitrarily chosen thread,say T, is remove by the JVM from the internal wait set
+         *             associated with the target object,there is no guarantee about which waiting thread will be
+         *             selected when the wait set contains more than one thread.
+         *          -- T must re-obtain the synchronization lock the target object,which will always cause it to block at
+         *             least until calling notify releases the lock,It will continue to block if some other thread obtains
+         *             the lock first.
+         *          -- T is then resumed form the point of its wait.
+         *
+         *  Interrupt:
+         *          If Thread.interrupt is invoked for a thread suspended in a wait, the same notify mechanics apply,
+         *          except that after re-acquiring the lock, the method throws an InterruptedException and the thread's
+         *          interruption status is set to false. If an interrupt and a notify occur at about the same time,
+         *          there is no guarantee about which action has precedence, so either result is possible.
+         *          (Future revisions of JLS may introduce deterministic guarantees about these outcomes.)
+         *
+         *
+         *
+         *
+         *
+         *
          *
          */
 

@@ -58,10 +58,11 @@ public class ThreadTest1 {
          * For every invariant that involves more than one variable,all the variable involved in tht invariant must be
          * guarded by the same lock.
          *
-         *
+         * !!!
          * In the absence of synchronization,the compiler ,processor,and runtime can do some downright weired things to the
          * order in which operations appear to execute.Attempts to reason about the order in which memory actions "must"
          * happen in insufficiently synchronized multithreaded program will almost certainly be incorrect.
+         * !!!
          *
          * Volatile Variables:
          *      when a field in declared volatile,the compiler and runtime are put on notice that this variable

@@ -16,10 +16,17 @@ public class InheritanceTest {
          */
         Super s = new Child();
         s.play();
+        s.dopa();
+
+        Child c = new Child();
+        s.dopa();
     }
 }
 
 class Super {
+    protected void dopa() {
+        System.out.println("hello,I am Dopa");
+    }
     int age = 23;
     public void play() {
         System.out.println("super class play");
