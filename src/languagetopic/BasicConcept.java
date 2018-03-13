@@ -31,7 +31,11 @@ public class BasicConcept {
          */
         String name = "will";
         String name2 = "will";
+        System.out.println("string literal test:");
+        System.out.println(name == name2); // true
+
         String name3 = new String("will");
+        System.out.println(name == name3); // false
         /**
          * what is Java String pool?
          *      String pool in Java is a pool of Strings stored in Java Heap Memory,

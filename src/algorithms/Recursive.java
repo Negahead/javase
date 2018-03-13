@@ -6,7 +6,7 @@ public class Recursive {
     }
 
     /**
-     * there is no performance benefit using recursive,in face,loops are sometimes better for performance.
+     * there is no performance benefit using recursive,in fact,loops are sometimes better for performance.
      * Recursion is not intrinsically better or worse than loops - each has advantages and disadvantages,
      *
      * Technically, iterative loops fit typical computer systems better at the hardware level: at the machine code level,

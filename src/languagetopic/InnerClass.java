@@ -53,6 +53,10 @@ class Book {
         System.out.println("static book method");
     }
 
+    void regularMethod() {
+
+    }
+
     private void privateMethod() {
         System.out.println("private method in outer class");
         int localInt = 100;
@@ -82,7 +86,7 @@ class Book {
     }
 
     /**
-     * static nested class,can only access static members of the outer class.
+     * static nested class,can only access static members(fields and methods) of the outer class.
      */
     static class InsideBookStatic {
         int k = 10;
@@ -90,6 +94,8 @@ class Book {
         public void greeting() {
             System.out.println("hello Turner" + language);
             book();
+//            regularMethod();
         }
+
     }
 }

@@ -18,5 +18,21 @@ import java.io.Serializable;
  * enum constants are implicitly static and final,but it's variable can still be changed.
  */
 public enum MyEnum implements Serializable{
-    BROKER,TOPIC,UNKNOWN
+    BROKER {
+        @Override
+        void greeting() {
+            System.out.println("broker");
+        }
+    },TOPIC {
+        @Override
+        void greeting() {
+            System.out.println("topic");
+        }
+    },UNKNOWN {
+        @Override
+        void greeting() {
+            System.out.println("unknown");
+        }
+    }; // static,final Enum type objects
+    abstract void greeting();
 }

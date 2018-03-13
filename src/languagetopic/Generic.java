@@ -34,7 +34,7 @@ package languagetopic;
  */
 
 
-import org.jetbrains.annotations.Contract;
+
 
 import java.util.*;
 
@@ -52,6 +52,24 @@ import java.util.*;
  */
 public class Generic {
     public static void main(String[] args) {
+        /**
+         * s.add(10); will raise capture not applied error,why?
+         * List<? extends Number> means a list of some type,which is a subtype of Number,but we do not known
+         * which type.As we do not know which subtype is the type parameter,we can't put Number objects in it,
+         * neither Integer or Float.such a list can only be used for taking elements out of the list,not to
+         * add elements at all(apart from null),if List is used as a consumer,it should be declared as ? super Number
+         */
+        List<? extends Number> s = new ArrayList<>();
+        s.add(null);
+
+        List<? super Number> s3 = new ArrayList<>();
+        s3.add(100);
+        s3.add(100.34);
+
+
+
+
+
         String[] strings = {"a","b","c"};
         generic(strings);
         Holder h = new Holder("name");
@@ -63,7 +81,7 @@ public class Generic {
         /**
          * for backward compatibility,assigning a parameterized type to a raw type is allowed.
          * but if you assign a raw type to a parameterized type,you get a warning.but warning
-         * is not a compile time error,it is just warning.
+         * is not a compile time error,it is just warning.but List<Object> list = new ArrayList<String> is not allowed.
          */
         List list = new ArrayList<String>();
         /**
@@ -87,6 +105,7 @@ public class Generic {
         for(int i : ints1) {
             System.out.println(i);
         }
+
 
         Favorites favorites = new Favorites();
         favorites.putFavorite(String.class,"Java");
@@ -176,6 +195,74 @@ public class Generic {
     }
 
     /**
+     *  A reifiable type is a type whose type information is fully available a runtime,This includes primitives,
+     * non-generic types,raw types,and invocations of unbound wildcards.
+     *
+     * Non-reifiable types are types where information has been removed at compile-time by type erasure,
+     * invocations of generic types that are not defined as unbounded wildcards.
+     *
+     * A type is reifiable if it is one of the following:
+     *      -- A primitive type
+     *      -- A non-parameterized class or interface type(Number,String,Runnable)
+     *      -- A parameterized type in which all type arguments are unbounded wildcards(List<?>,ArrayList<?>,Map<?,?>
+     *      -- A raw type
+     *      -- An array whose component type is reifiable(int[],Number[],List<?>[],List[]
+     *
+     *
+     * A type is not reifiable if it is one of the following:
+     *      -- A type variable(such as T)
+     *      -- A parameterized type with actual parameters(such as List<Number>)
+     *      -- A parameterized type with a bound(List<? extends Number> or Comparable<? super String>
+     *
+     *
+     * when you use generics,much of the time,the compile-time type information is lost.At run time,often all the
+     * program knows about a reference is that is a reference to some sort of Object.If all the type information
+     * is also known at run-time,the type is called reifiable.
+     *
+     * Type erasure ensures that no new classes are created for parameterized types,consequently,generics incur overhead
+     *
+     *
+     * /
+
+
+     /**
+     *  Type erasure:
+     *      Type erasure can be explained as the process of enforcing type constraints only at compile time and
+     *      discarding the element type information at runtime,below example,when compiled,the unbound type E gets replaced
+     *      with actual type of Object.the produced bytecode,therefore,contains only ordinary classes,interfaces and methods.
+     *
+     *      At the class level,type parameters on the class are discarded during code compilation and replaced with
+     *      its first bound,or Objects if the type parameter is unbound.
+     *
+     *      for method-level type erasure,the method's type parameter is not stored but rather converted to its parent
+     *      type Object if it;s unbound or it's first bound class when it is bound
+     */
+
+    static class MyStack<E> {
+        private E[] elements;
+        private int size = 0;
+        private static final int DEFAULT_INITIAL_CAPACITY = 16;
+
+        @SuppressWarnings(value = "ignore")
+        public MyStack() {
+            elements = (E[])new Object[DEFAULT_INITIAL_CAPACITY];
+
+        }
+
+        public void push(E e) {
+
+        }
+
+        public static <E> void constainsElement(E[] elements,E element) {
+
+        }
+
+
+    }
+
+
+
+    /**
      *  Raw Types behaves just like they were before generics were introduced,using Objects like the following:
      *      List names = new ArrayList();
      *      names.add("John");
@@ -224,6 +311,7 @@ public class Generic {
 //        List<Integer> a[] = new List<Integer>[1];
     }
 }
+
 
 class Favorites {
     private Map<Class<?>,Object> favorites = new HashMap<>();

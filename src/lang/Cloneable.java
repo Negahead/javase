@@ -9,6 +9,22 @@ public class Cloneable {
         myClass.name = "will";
         myClass.props.put("age","23");
         myClass.props.put("job","no");
+
+        int[] array = {1,2,3};
+        int[] arrayClone = array.clone();
+        System.out.println("array clone check");
+        System.out.println(array == arrayClone); // false
+        array[0] = 100;
+        System.out.println(arrayClone[0]); // still 1,not affected
+
+        HashMap<String,String> map = new HashMap<>();
+        map.put("name","dopa");
+        map.put("age","22");
+        HashMap<String,String> mapCopy = (HashMap<String, String>) map.clone();
+        System.out.println("map clone");
+        System.out.println(map == mapCopy); //false
+        map.put("name","faker");
+        System.out.println(mapCopy.get("name"));// still dopa
         /**
          * you get a compile time error:clone() has protected access in java.lang.Object
          *

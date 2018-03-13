@@ -1,5 +1,7 @@
 package languagetopic;
 
+import java.io.Serializable;
+
 public class InheritanceTest {
     public static void main(String[] args) {
         /**
@@ -14,16 +16,21 @@ public class InheritanceTest {
          * overloaded methods are bonded using static binding while overridden methods are bonded
          * using dynamic binding at runtime.
          */
-        Super s = new Child();
-        s.play();
-        s.dopa();
+//        Super s = new Child();
+//        s.play();
+//        s.dopa();
+//
+//        Child c = new Child();
+//        s.dopa();
 
         Child c = new Child();
-        s.dopa();
     }
 }
 
 class Super {
+    Super() {
+        play();
+    }
     protected void dopa() {
         System.out.println("hello,I am Dopa");
     }
@@ -35,6 +42,7 @@ class Super {
 }
 
 class Child extends Super {
+    @Override
     public void play() {
         System.out.println("child class play");
     }
@@ -70,6 +78,9 @@ class Child extends Super {
  * method in an interface is public by default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
  *
  */
+
+abstract class dopa {}
+abstract class faker{}
 abstract class AbstractClass {
     /**
      * a method that is declared as abstract and does not have implementation.
@@ -81,6 +92,10 @@ abstract class AbstractClass {
     }
 }
 
+/**
+ * not static block in interface.because interface is not supply implementation.A block would
+ * constitute implementation.Also,interface is not a part of object hierarchy.
+ */
 interface a {
     int b = 100;
 }

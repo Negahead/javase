@@ -40,7 +40,18 @@ public class HashMapTest {
     // maintains a doubly-linked list running through all its entries in addition to an underlying array of default size 16,
     // it preserves the insertion order.
     // treeMap is Red-Black tree based NavigableMap implementation,it is default sorted according to the natural ordering of its key.
-    // HashTable is synchronized,in contract to HashMap.
+    // HashTable is synchronized,in contract to HashMap.And do not permit nulls.If a thread-safe implementation is not needed,
+    // it is recommended to use HashMap in place of Hashtable.If a thread-safe highly-concurrent implementation is desired,then
+    // it is recommended to use ConcurrentHashMap in place of Hashtable.
+
+    /**
+     * ConcurrentHashMap allows concurrent access to the map,A ConcurrentHashMap has internal
+     * final class called Segment so we can say that ConcurrentHashMap is internally divided
+     * in segments if size 32,so at max 32 threads can work at a time.It means each thread
+     * can work on a each segment during high concurrency and at most 32 threads can
+     * operate at max which simply maintains 32 locks to guard each bucket of the ConcurrentHashMap
+     * @param args
+     */
     public static void main(String[] args) {
 
 

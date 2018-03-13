@@ -20,13 +20,13 @@ public class AutoBoxing {
         Integer i = 1;
         Integer j = 1;
         if(i == j) {
-            System.out.println("equal");
+            System.out.println("equal"); // prints equal,why?
         }
         ArrayList<Integer> integers = new ArrayList<>();
         for(String s : nums) {
             integers.add(Integer.valueOf(s));
         }
-        System.out.println(Collections.binarySearch(integers,1,cmp));
+        System.out.println(Collections.binarySearch(integers,1,cmp)); // 1
 
         ChildO c = new ChildO();
         c.overrideMe();
