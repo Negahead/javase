@@ -19,8 +19,12 @@ public class QueueTest {
          */
         Deque<String> deque = new ArrayDeque<>();
         deque.add("dopa");
-        deque.addFirst("faker");
-        deque.addLast("rookie");
+        deque.add("dopa1");
+
+        deque.add("dopa2"); // dopa,dopa1,dopa2
+
+//        deque.addFirst("faker");
+//        deque.addLast("rookie");
         // faker,dopa,rookie
         deque.forEach(System.out::println);
         // rookie,peek*() will return null if the collection is empty,while get*() throws Exceptions

@@ -34,8 +34,6 @@ package languagetopic;
  */
 
 
-
-
 import java.util.*;
 
 /**
@@ -162,6 +160,20 @@ public class Generic {
     static void add(List<Number> numbers) {
 
     }
+
+    /**
+     * Type erasure applies to the use of generics,There's definitely metadata in the class file to say whether
+     * or not a method/type is generic,and what the constrains are etc.But when generic are used,they are
+     * converted into compile-time checks and execution-time casts.so THis code:
+     *      List<String> list = new ArrayList<String>();
+     *      list.add("Hi");
+     *      String x = list.get(0)
+     * is compiled into
+     *      List list = new ArrayList();
+     *      list.add("Hi");
+     *      String x = (String) list.get(0);
+     * At execution time,the type information is gone.
+     */
     static void generic(Object[] param) {
 //        param[0] = 1;
     }
