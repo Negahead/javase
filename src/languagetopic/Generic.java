@@ -60,6 +60,7 @@ public class Generic {
         List<? extends Number> s = new ArrayList<>();
         s.add(null);
 
+        // now it is OK,because it s a consumer.
         List<? super Number> s3 = new ArrayList<>();
         s3.add(100);
         s3.add(100.34);

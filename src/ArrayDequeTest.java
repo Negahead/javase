@@ -1,3 +1,6 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * ArrayDeque is resizable-array implementation of the Deque interface.Array deques have no capacity
  * restrictions;they grow as necessary to support usage.they are not thread-safe.NULL elements are
@@ -12,6 +15,13 @@
  */
 public class ArrayDequeTest {
     public static void main(String[] args) {
-
+        Deque<String> stringDeque = new ArrayDeque<>();
+        stringDeque.addFirst("dopa");
+        stringDeque.addFirst("faker");
+        stringDeque.addLast("mia");
+        stringDeque.addLast("zoey");
+        for(String s : stringDeque) {
+            System.out.println(s);
+        }
     }
 }

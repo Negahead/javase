@@ -17,7 +17,7 @@ public class QueueTest {
          * Resizable-array implementation of the Deque interface.
          * not thread safe,do not support concurrent access by multiple threads,null elements are prohibited
          */
-        Deque<String> deque = new ArrayDeque<>();
+        Deque<java.lang.String> deque = new ArrayDeque<>();
         deque.add("dopa");
         deque.add("dopa1");
 

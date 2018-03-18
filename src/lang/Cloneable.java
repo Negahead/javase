@@ -26,6 +26,9 @@ public class Cloneable {
         map.put("name","faker");
         System.out.println(mapCopy.get("name"));// still dopa
         /**
+         * Member variables marked by the java transient keyword are not transferred, they are lost intentionally.
+         */
+        /**
          * you get a compile time error:clone() has protected access in java.lang.Object
          *
          * you should:

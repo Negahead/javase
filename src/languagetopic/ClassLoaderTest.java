@@ -22,7 +22,7 @@ import java.util.HashMap;
  * change,code generally does not.When we associate a particular state to a class,we have an instance of that class.
  * So different instances of the same class can have different state.but all refer to the same code.in Java,a class
  * will usually have its code contained in a .class file.(or network),whenever we compile any Java file,the compiler will
- * embed a public,static,final file named class,of the type java.lang.Class in the emitted byte code.
+ * embed a public,static,final field named class,of the type java.lang.Class in the emitted byte code.
  *
  * In a JVM,each and every class is loaded by some instance of a java.lang.ClassLoader.The ClassLoader class is located
  * in the java.lang package and developers are free to subclass it to add their own functionality to class loading.
@@ -156,6 +156,7 @@ class MyClassLoader extends ClassLoader {
     }
 
     private byte[] loadClassFileData(String name) throws IOException {
+        System.out.println("the current class's class loader is " + getClass().getClassLoader());
         InputStream stream = getClass().getClassLoader().getResourceAsStream(name);
         int size = stream.available();
         byte buff[] = new byte[size];
